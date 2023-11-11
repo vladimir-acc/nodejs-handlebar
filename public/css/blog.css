@@ -1,0 +1,19 @@
+.tags {
+  border: 2px solid #c0c0c4;
+  border-radius: 10px 0;
+  color: #2c2e39;
+}
+
+.tags,
+.tags.active,
+.tags:hover {
+  box-sizing: border-box;
+  display: inline-block;
+  /* font-family: Open Sans, serif; */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  margin: 4px 2px;
+  padding: 4px 10px;
+}

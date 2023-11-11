@@ -1,0 +1,28 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+ul {
+  padding: 0;
+}
+
+img[src*="logo.png"] {
+  width: 60px;
+  /* Set your desired width */
+  height: auto;
+  /* Maintain aspect ratio */
+}
+
+.form {
+  padding: 1.2rem;
+  gap: 1.3rem;
+}
+
+.content {
+  min-height: calc(100dvh - 245px);
+  padding: 0 0 20px;
+}
+
+.colums-3 {
+  grid-template-columns: 1fr;
+}

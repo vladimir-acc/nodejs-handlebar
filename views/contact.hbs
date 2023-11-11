@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {{> header}}
+  <link rel="stylesheet" type="text/css" href="/public/css/blog.css">
+  <title>{{title}}</title>
+</head>
+
+<body>
+  {{> topNavbar}}
+  <div class="content">
+    <h1>{{title}}</h1>
+    <div class="grid colums-3 grid-gap-1 py-2">
+      {{#each contacts}}
+      <div class="text-center">
+        <h2>{{this.title}}</h2> {{this.address}}
+        <div>{{#email}}{{this.email}}{{/email}}
+          {{#bold}}{{this.phone}}{{/bold}}</div>
+      </div>
+      {{/each}}
+    </div>
+    <form id="form" class="form">
+      <input id="firstName" type="text" name="firstName" placeholder="First Name" required>
+      <input id="lastName" type="text" name="lastName" placeholder="Last Name" required>
+      <input type="tel" name="contactNumber" placeholder="Contact Number">
+      <input type="email" name="email" placeholder="Email">
+      <textarea name="message" placeholder="Message"></textarea>
+      <button id="btnSubmit" type="submit">Send Message</button>
+    </form>
+  </div>
+</body>
+<script>
+  function formSubmit(event) {
+    event.preventDefault();
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const formData = { firstName: firstName.value, lastName: lastName.value };
+
+    async function postData(url = "", data = { formData }) {
+
+      const response = await fetch(url, {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        mode: "cors", // no-cors, *cors, same-origin
+        cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: "same-origin", // include, *same-origin, omit
+        headers: {
+          "Content-Type": "application/json",
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: "follow", // manual, *follow, error
+        referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+      });
+      firstName.setAttribute('disabled', true);
+      lastName.setAttribute('disabled', true);
+      btnSubmit.setAttribute('disabled', true);
+      //location.href = '/submit-contact';
+      return response.json();
+
+    };
+    postData("/submit-contact", formData).then((data) => {
+      console.log(data); // JSON data parsed by `data.json()` call
+    });
+
+  };
+  form.addEventListener("submit", formSubmit);
+
+</script>
+{{> footer}}
+
+</html>
